@@ -1,0 +1,16 @@
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.csprojAssemblyReference.cache
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.Form1.resources
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.Form2.resources
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.csproj.GenerateResource.cache
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\Interop.WMPLib.dll
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\AxInterop.WMPLib.dll
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.csproj.ResolveComReference.cache
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\bin\Debug\JMusicPlayer.exe.config
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\bin\Debug\JMusicPlayer.exe
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\bin\Debug\JMusicPlayer.pdb
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\bin\Debug\Interop.WMPLib.dll
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\bin\Debug\AxInterop.WMPLib.dll
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.Properties.Resources.resources
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.csproj.CoreCompileInputs.cache
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.exe
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.pdb
