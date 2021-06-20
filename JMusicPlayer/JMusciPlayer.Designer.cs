@@ -1,7 +1,7 @@
 ﻿
 namespace JMusicPlayer
 {
-    partial class Form1
+    partial class JMusicPlayer
     {
         /// <summary>
         /// Required designer variable.
@@ -29,16 +29,13 @@ namespace JMusicPlayer
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JMusicPlayer));
             this.button4 = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.labelTitle = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonClose = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
+            this.WMP = new AxWMPLib.AxWindowsMediaPlayer();
             this.tableLayoutPanelSearch = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxTitle = new System.Windows.Forms.ComboBox();
@@ -64,10 +61,11 @@ namespace JMusicPlayer
             this.buttonPlay = new System.Windows.Forms.Button();
             this.buttonBack = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.labelCurrent = new System.Windows.Forms.Label();
+            this.labelTotal = new System.Windows.Forms.Label();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WMP)).BeginInit();
             this.tableLayoutPanelSearch.SuspendLayout();
             this.flowLayoutPanelPlaylist.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -97,26 +95,27 @@ namespace JMusicPlayer
             this.labelTitle.TabIndex = 1;
             this.labelTitle.Text = "JMusic Player";
             // 
-            // button5
+            // buttonClose
             // 
-            this.button5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Candara Light", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(521, 0);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(64, 63);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "X";
-            this.button5.UseVisualStyleBackColor = true;
+            this.buttonClose.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonClose.FlatAppearance.BorderSize = 0;
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonClose.Font = new System.Drawing.Font("Candara Light", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonClose.ForeColor = System.Drawing.Color.White;
+            this.buttonClose.Location = new System.Drawing.Point(521, 0);
+            this.buttonClose.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(64, 63);
+            this.buttonClose.TabIndex = 0;
+            this.buttonClose.Text = "X";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // panel
             // 
             this.panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.panel.Controls.Add(this.labelTitle);
-            this.panel.Controls.Add(this.button5);
+            this.panel.Controls.Add(this.buttonClose);
             this.panel.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
@@ -128,28 +127,28 @@ namespace JMusicPlayer
             // 
             this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar1.Location = new System.Drawing.Point(7, 549);
+            this.trackBar1.Location = new System.Drawing.Point(56, 549);
             this.trackBar1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(570, 56);
+            this.trackBar1.Size = new System.Drawing.Size(474, 56);
             this.trackBar1.TabIndex = 22;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
             // 
-            // axWindowsMediaPlayer1
+            // WMP
             // 
-            this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(0, 64);
-            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
-            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(583, 457);
-            this.axWindowsMediaPlayer1.TabIndex = 25;
+            this.WMP.Enabled = true;
+            this.WMP.Location = new System.Drawing.Point(0, 64);
+            this.WMP.Name = "WMP";
+            this.WMP.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("WMP.OcxState")));
+            this.WMP.Size = new System.Drawing.Size(583, 457);
+            this.WMP.TabIndex = 25;
             // 
             // tableLayoutPanelSearch
             // 
             this.tableLayoutPanelSearch.ColumnCount = 3;
             this.tableLayoutPanelSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.94964F));
             this.tableLayoutPanelSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.05036F));
-            this.tableLayoutPanelSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanelSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37F));
             this.tableLayoutPanelSearch.Controls.Add(this.label1, 1, 1);
             this.tableLayoutPanelSearch.Controls.Add(this.comboBoxTitle, 1, 2);
             this.tableLayoutPanelSearch.Controls.Add(this.buttonSearch, 1, 9);
@@ -181,7 +180,7 @@ namespace JMusicPlayer
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Gray;
-            this.label1.Location = new System.Drawing.Point(39, 20);
+            this.label1.Location = new System.Drawing.Point(38, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 24);
             this.label1.TabIndex = 2;
@@ -194,7 +193,7 @@ namespace JMusicPlayer
             this.comboBoxTitle.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxTitle.ForeColor = System.Drawing.Color.White;
             this.comboBoxTitle.FormattingEnabled = true;
-            this.comboBoxTitle.Location = new System.Drawing.Point(39, 55);
+            this.comboBoxTitle.Location = new System.Drawing.Point(38, 55);
             this.comboBoxTitle.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.comboBoxTitle.Name = "comboBoxTitle";
             this.comboBoxTitle.Size = new System.Drawing.Size(236, 32);
@@ -207,7 +206,7 @@ namespace JMusicPlayer
             this.buttonSearch.FlatAppearance.BorderSize = 0;
             this.buttonSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSearch.ForeColor = System.Drawing.Color.Gray;
-            this.buttonSearch.Location = new System.Drawing.Point(39, 385);
+            this.buttonSearch.Location = new System.Drawing.Point(38, 385);
             this.buttonSearch.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(236, 37);
@@ -220,7 +219,7 @@ namespace JMusicPlayer
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(39, 110);
+            this.label2.Location = new System.Drawing.Point(38, 110);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 24);
             this.label2.TabIndex = 3;
@@ -231,7 +230,7 @@ namespace JMusicPlayer
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Gray;
-            this.label3.Location = new System.Drawing.Point(39, 200);
+            this.label3.Location = new System.Drawing.Point(38, 200);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 24);
             this.label3.TabIndex = 4;
@@ -242,7 +241,7 @@ namespace JMusicPlayer
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Gray;
-            this.label4.Location = new System.Drawing.Point(39, 290);
+            this.label4.Location = new System.Drawing.Point(38, 290);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 24);
             this.label4.TabIndex = 5;
@@ -255,7 +254,7 @@ namespace JMusicPlayer
             this.comboBoxArtist.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxArtist.ForeColor = System.Drawing.Color.White;
             this.comboBoxArtist.FormattingEnabled = true;
-            this.comboBoxArtist.Location = new System.Drawing.Point(39, 145);
+            this.comboBoxArtist.Location = new System.Drawing.Point(38, 145);
             this.comboBoxArtist.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.comboBoxArtist.Name = "comboBoxArtist";
             this.comboBoxArtist.Size = new System.Drawing.Size(236, 32);
@@ -268,7 +267,7 @@ namespace JMusicPlayer
             this.comboBoxAlbum.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxAlbum.ForeColor = System.Drawing.Color.White;
             this.comboBoxAlbum.FormattingEnabled = true;
-            this.comboBoxAlbum.Location = new System.Drawing.Point(39, 235);
+            this.comboBoxAlbum.Location = new System.Drawing.Point(38, 235);
             this.comboBoxAlbum.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.comboBoxAlbum.Name = "comboBoxAlbum";
             this.comboBoxAlbum.Size = new System.Drawing.Size(236, 32);
@@ -281,7 +280,7 @@ namespace JMusicPlayer
             this.comboBoxGenre.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxGenre.ForeColor = System.Drawing.Color.White;
             this.comboBoxGenre.FormattingEnabled = true;
-            this.comboBoxGenre.Location = new System.Drawing.Point(39, 325);
+            this.comboBoxGenre.Location = new System.Drawing.Point(38, 325);
             this.comboBoxGenre.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.comboBoxGenre.Name = "comboBoxGenre";
             this.comboBoxGenre.Size = new System.Drawing.Size(236, 32);
@@ -425,12 +424,13 @@ namespace JMusicPlayer
             this.buttonPlaylist.FlatAppearance.BorderSize = 0;
             this.buttonPlaylist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPlaylist.Image = ((System.Drawing.Image)(resources.GetObject("buttonPlaylist.Image")));
-            this.buttonPlaylist.Location = new System.Drawing.Point(489, 566);
+            this.buttonPlaylist.Location = new System.Drawing.Point(490, 581);
             this.buttonPlaylist.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.buttonPlaylist.Name = "buttonPlaylist";
-            this.buttonPlaylist.Size = new System.Drawing.Size(76, 104);
+            this.buttonPlaylist.Size = new System.Drawing.Size(76, 74);
             this.buttonPlaylist.TabIndex = 32;
             this.buttonPlaylist.UseVisualStyleBackColor = true;
+            this.buttonPlaylist.Click += new System.EventHandler(this.buttonPlaylist_Click);
             // 
             // buttonStop
             // 
@@ -438,12 +438,13 @@ namespace JMusicPlayer
             this.buttonStop.FlatAppearance.BorderSize = 0;
             this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStop.Image = ((System.Drawing.Image)(resources.GetObject("buttonStop.Image")));
-            this.buttonStop.Location = new System.Drawing.Point(23, 566);
+            this.buttonStop.Location = new System.Drawing.Point(24, 581);
             this.buttonStop.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(76, 104);
+            this.buttonStop.Size = new System.Drawing.Size(76, 74);
             this.buttonStop.TabIndex = 31;
             this.buttonStop.UseVisualStyleBackColor = true;
+            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
             // 
             // buttonPlay
             // 
@@ -460,6 +461,7 @@ namespace JMusicPlayer
             this.buttonPlay.TabIndex = 28;
             this.buttonPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.buttonPlay.UseVisualStyleBackColor = false;
+            this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
             // 
             // buttonBack
             // 
@@ -467,12 +469,13 @@ namespace JMusicPlayer
             this.buttonBack.FlatAppearance.BorderSize = 0;
             this.buttonBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBack.Image = ((System.Drawing.Image)(resources.GetObject("buttonBack.Image")));
-            this.buttonBack.Location = new System.Drawing.Point(117, 566);
+            this.buttonBack.Location = new System.Drawing.Point(118, 581);
             this.buttonBack.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(76, 104);
+            this.buttonBack.Size = new System.Drawing.Size(76, 74);
             this.buttonBack.TabIndex = 30;
             this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
             // buttonNext
             // 
@@ -480,20 +483,43 @@ namespace JMusicPlayer
             this.buttonNext.FlatAppearance.BorderSize = 0;
             this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNext.Image = ((System.Drawing.Image)(resources.GetObject("buttonNext.Image")));
-            this.buttonNext.Location = new System.Drawing.Point(314, 565);
+            this.buttonNext.Location = new System.Drawing.Point(315, 580);
             this.buttonNext.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(76, 104);
+            this.buttonNext.Size = new System.Drawing.Size(76, 74);
             this.buttonNext.TabIndex = 29;
             this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
-            // Form1
+            // labelCurrent
+            // 
+            this.labelCurrent.AutoSize = true;
+            this.labelCurrent.ForeColor = System.Drawing.Color.Gray;
+            this.labelCurrent.Location = new System.Drawing.Point(12, 552);
+            this.labelCurrent.Name = "labelCurrent";
+            this.labelCurrent.Size = new System.Drawing.Size(51, 21);
+            this.labelCurrent.TabIndex = 33;
+            this.labelCurrent.Text = "00:00";
+            // 
+            // labelTotal
+            // 
+            this.labelTotal.AutoSize = true;
+            this.labelTotal.ForeColor = System.Drawing.Color.Gray;
+            this.labelTotal.Location = new System.Drawing.Point(525, 552);
+            this.labelTotal.Name = "labelTotal";
+            this.labelTotal.Size = new System.Drawing.Size(51, 21);
+            this.labelTotal.TabIndex = 34;
+            this.labelTotal.Text = "00:00";
+            // 
+            // JMusicPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(585, 673);
+            this.Controls.Add(this.labelTotal);
+            this.Controls.Add(this.labelCurrent);
             this.Controls.Add(this.buttonPlaylist);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonPlay);
@@ -501,20 +527,19 @@ namespace JMusicPlayer
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.tableLayoutPanelSearch);
             this.Controls.Add(this.flowLayoutPanelPlaylist);
-            this.Controls.Add(this.axWindowsMediaPlayer1);
+            this.Controls.Add(this.WMP);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.panel);
             this.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.Name = "JMusicPlayer";
+            this.Text = "JMusicPlayer";
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WMP)).EndInit();
             this.tableLayoutPanelSearch.ResumeLayout(false);
             this.tableLayoutPanelSearch.PerformLayout();
             this.flowLayoutPanelPlaylist.ResumeLayout(false);
@@ -529,13 +554,11 @@ namespace JMusicPlayer
         #endregion
 
         private System.Windows.Forms.Button button4;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.TrackBar trackBar1;
-        private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
+        private AxWMPLib.AxWindowsMediaPlayer WMP;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxTitle;
@@ -561,6 +584,8 @@ namespace JMusicPlayer
         private System.Windows.Forms.Button buttonPlay;
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.Label labelCurrent;
+        private System.Windows.Forms.Label labelTotal;
     }
 }
 

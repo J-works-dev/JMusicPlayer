@@ -1,5 +1,4 @@
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.csprojAssemblyReference.cache
-C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.Form1.resources
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.Form2.resources
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.csproj.GenerateResource.cache
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\Interop.WMPLib.dll
@@ -14,3 +13,4 @@ C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.Pr
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.csproj.CoreCompileInputs.cache
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.exe
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.pdb
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.JMusicPlayer.resources
