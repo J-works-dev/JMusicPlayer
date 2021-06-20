@@ -14,3 +14,5 @@ C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.cs
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.exe
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.pdb
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.JMusicPlayer.resources
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\bin\Debug\taglib-sharp.dll
+C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.csproj.CopyComplete

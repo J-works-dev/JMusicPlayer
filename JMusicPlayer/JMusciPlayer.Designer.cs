@@ -174,6 +174,7 @@ namespace JMusicPlayer
             this.tableLayoutPanelSearch.Size = new System.Drawing.Size(315, 427);
             this.tableLayoutPanelSearch.TabIndex = 27;
             this.tableLayoutPanelSearch.Visible = false;
+            this.tableLayoutPanelSearch.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tableLayoutPanelSearch_MouseDown);
             // 
             // label1
             // 
@@ -198,6 +199,7 @@ namespace JMusicPlayer
             this.comboBoxTitle.Name = "comboBoxTitle";
             this.comboBoxTitle.Size = new System.Drawing.Size(236, 32);
             this.comboBoxTitle.TabIndex = 1;
+            this.comboBoxTitle.SelectedIndexChanged += new System.EventHandler(this.comboBoxTitle_SelectedIndexChanged);
             // 
             // buttonSearch
             // 
@@ -213,6 +215,7 @@ namespace JMusicPlayer
             this.buttonSearch.TabIndex = 0;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = false;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // label2
             // 
@@ -259,6 +262,7 @@ namespace JMusicPlayer
             this.comboBoxArtist.Name = "comboBoxArtist";
             this.comboBoxArtist.Size = new System.Drawing.Size(236, 32);
             this.comboBoxArtist.TabIndex = 6;
+            this.comboBoxArtist.SelectedIndexChanged += new System.EventHandler(this.comboBoxArtist_SelectedIndexChanged);
             // 
             // comboBoxAlbum
             // 
@@ -272,6 +276,7 @@ namespace JMusicPlayer
             this.comboBoxAlbum.Name = "comboBoxAlbum";
             this.comboBoxAlbum.Size = new System.Drawing.Size(236, 32);
             this.comboBoxAlbum.TabIndex = 7;
+            this.comboBoxAlbum.SelectedIndexChanged += new System.EventHandler(this.comboBoxAlbum_SelectedIndexChanged);
             // 
             // comboBoxGenre
             // 
@@ -285,6 +290,7 @@ namespace JMusicPlayer
             this.comboBoxGenre.Name = "comboBoxGenre";
             this.comboBoxGenre.Size = new System.Drawing.Size(236, 32);
             this.comboBoxGenre.TabIndex = 8;
+            this.comboBoxGenre.SelectedIndexChanged += new System.EventHandler(this.comboBoxGenre_SelectedIndexChanged);
             // 
             // flowLayoutPanelPlaylist
             // 
@@ -298,6 +304,7 @@ namespace JMusicPlayer
             this.flowLayoutPanelPlaylist.Size = new System.Drawing.Size(318, 481);
             this.flowLayoutPanelPlaylist.TabIndex = 26;
             this.flowLayoutPanelPlaylist.Visible = false;
+            this.flowLayoutPanelPlaylist.MouseDown += new System.Windows.Forms.MouseEventHandler(this.flowLayoutPanelPlaylist_MouseDown);
             // 
             // panel1
             // 
@@ -327,6 +334,7 @@ namespace JMusicPlayer
             this.buttonDelete.Size = new System.Drawing.Size(30, 25);
             this.buttonDelete.TabIndex = 8;
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // buttonSearchPopup
             // 
@@ -340,6 +348,7 @@ namespace JMusicPlayer
             this.buttonSearchPopup.Size = new System.Drawing.Size(33, 48);
             this.buttonSearchPopup.TabIndex = 7;
             this.buttonSearchPopup.UseVisualStyleBackColor = true;
+            this.buttonSearchPopup.Click += new System.EventHandler(this.buttonSearchPopup_Click);
             // 
             // labelPlaylist
             // 
@@ -367,6 +376,7 @@ namespace JMusicPlayer
             this.buttonOpen.TabIndex = 5;
             this.buttonOpen.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonOpen.UseVisualStyleBackColor = true;
+            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // flowLayoutPanelList
             // 
@@ -403,6 +413,7 @@ namespace JMusicPlayer
             this.buttonLoad.TabIndex = 1;
             this.buttonLoad.Text = "Load Playlist";
             this.buttonLoad.UseVisualStyleBackColor = true;
+            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
             // 
             // buttonSave
             // 
@@ -417,6 +428,7 @@ namespace JMusicPlayer
             this.buttonSave.TabIndex = 0;
             this.buttonSave.Text = "Save Playlist";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonPlaylist
             // 
