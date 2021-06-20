@@ -11,14 +11,15 @@ namespace JMusicPlayer.Model
         public string name;
         public string path;
         public Song next;
-        private TagLib.File tagFile;
-        private static Image defaultImage = Image.FromFile("../images/default.png");
-
+        private readonly TagLib.File tagFile;
+        //private static Image defaultImage = Image.FromFile("../images/default.png");
+        
         public Song(string path)
         {
             this.path = path;
             this.name = Path.GetFileName(path);
             this.next = null;
+            this.tagFile = TagLib.File.Create(path);
         }
         public string Title
         {
@@ -59,28 +60,28 @@ namespace JMusicPlayer.Model
                     tagFile.Tag.FirstGenre.Trim();
             }
         }
-        public System.Drawing.Image LoadImageSong
-        {
-            get
-            {
-                TagLib.IPicture firstPicture = tagFile.Tag.Pictures.FirstOrDefault();
-                System.Drawing.Image image;
+        //public System.Drawing.Image LoadImageSong
+        //{
+        //    get
+        //    {
+        //        TagLib.IPicture firstPicture = tagFile.Tag.Pictures.FirstOrDefault();
+        //        System.Drawing.Image image;
 
-                if (firstPicture != null && firstPicture.Data.Data.Length != 0)
-                {
-                    var mStream = new MemoryStream();
-                    byte[] pData = firstPicture.Data.Data;
-                    mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
-                    image = System.Drawing.Image.FromStream(mStream);
-                    mStream.Dispose();
-                }
-                else
-                {
-                    image = defaultImage;// 
-                }
-                return image;
-            }
-        }
+        //        if (firstPicture != null && firstPicture.Data.Data.Length != 0)
+        //        {
+        //            var mStream = new MemoryStream();
+        //            byte[] pData = firstPicture.Data.Data;
+        //            mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
+        //            image = System.Drawing.Image.FromStream(mStream);
+        //            mStream.Dispose();
+        //        }
+        //        else
+        //        {
+        //            image = defaultImage;// 
+        //        }
+        //        return image;
+        //    }
+        //}
         public double Duration
         {
             get => tagFile.Properties.Duration.TotalSeconds;

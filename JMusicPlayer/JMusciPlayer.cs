@@ -8,14 +8,41 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using JMusicPlayer.Control;
+using JMusicPlayer.Model;
 
 namespace JMusicPlayer
 {
     public partial class JMusicPlayer : Form
     {
+        Playlist playlist = new Playlist();
         public JMusicPlayer()
         {
             InitializeComponent();
+            Intializer();
+            StylizeDataGrid();
+            if (!playlist.IsEmpty())
+            {
+                displayPlaylist();
+            }
+        }
+
+        private void Intializer()
+        {
+            WMP.Ctlenabled = false;
+            WMP.windowlessVideo = true;
+            WMP.stretchToFit = true;
+        }
+
+        private void StylizeDataGrid()
+        {
+            dataGridView.ColumnCount = 2;
+            dataGridView.Columns[0].Name = "Title";
+            dataGridView.Columns[1].Name = "Duration";
+            dataGridView.BorderStyle = BorderStyle.None;
+            dataGridView.BackgroundColor = Color.FromArgb(20, 20, 20);
+            dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(20, 20, 20);
+            dataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -60,7 +87,18 @@ namespace JMusicPlayer
         // Playlist Page
         private void buttonOpen_Click(object sender, EventArgs e)
         {
+            OpenFileDialog od = new OpenFileDialog
+            {
+                Multiselect = false,
+                Filter = "All Media Files|*.wav;*.aac;*.wma;*.wmv;*.avi;*.mpg;*.mpeg;*.m1v;*.mp2;*.mp3;*.mpa;*.mpe;*.m3u;*.mp4;*.mov;*.3g2;*.3gp2;*.3gp;*.3gpp;*.m4a;*.cda;*.aif;*.aifc;*.aiff;*.mid;*.midi;*.rmi;*.mkv;*.WAV;*.AAC;*.WMA;*.WMV;*.AVI;*.MPG;*.MPEG;*.M1V;*.MP2;*.MP3;*.MPA;*.MPE;*.M3U;*.MP4;*.MOV;*.3G2;*.3GP2;*.3GP;*.3GPP;*.M4A;*.CDA;*.AIF;*.AIFC;*.AIFF;*.MID;*.MIDI;*.RMI;*.MKV",
+                DefaultExt = "All Media Files|*.wav;*.aac;*.wma;*.wmv;*.avi;*.mpg;*.mpeg;*.m1v;*.mp2;*.mp3;*.mpa;*.mpe;*.m3u;*.mp4;*.mov;*.3g2;*.3gp2;*.3gp;*.3gpp;*.m4a;*.cda;*.aif;*.aifc;*.aiff;*.mid;*.midi;*.rmi;*.mkv;*.WAV;*.AAC;*.WMA;*.WMV;*.AVI;*.MPG;*.MPEG;*.M1V;*.MP2;*.MP3;*.MPA;*.MPE;*.M3U;*.MP4;*.MOV;*.3G2;*.3GP2;*.3GP;*.3GPP;*.M4A;*.CDA;*.AIF;*.AIFC;*.AIFF;*.MID;*.MIDI;*.RMI;*.MKV"
+            };
 
+            if (od.ShowDialog() == DialogResult.OK)
+            {
+                playlist.Add(od.FileName);
+                displayPlaylist();
+            }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -122,6 +160,26 @@ namespace JMusicPlayer
 
         }
 
-        
+        private void displayPlaylist()
+        {
+            dataGridView.Rows.Clear();
+
+            string[] names = playlist.GetAllName();
+            double[] durations = playlist.GetAllDuration();
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                //string row = names[i] + "\t|\t" + timeToString(durations[i]);
+                dataGridView.Rows.Add(names[i], timeToString(durations[i]));
+            }
+        }
+
+        private string timeToString(double time)
+        {
+            int min = (int)time / 60;
+            int sec = (int)time % 60;
+
+            return string.Format("{0,2}:{0,2}", min.ToString("D2"), sec.ToString("D2"));
+        }
     }
 }

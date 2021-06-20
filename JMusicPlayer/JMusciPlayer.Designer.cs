@@ -52,7 +52,6 @@ namespace JMusicPlayer
             this.buttonSearchPopup = new System.Windows.Forms.Button();
             this.labelPlaylist = new System.Windows.Forms.Label();
             this.buttonOpen = new System.Windows.Forms.Button();
-            this.flowLayoutPanelList = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -63,6 +62,8 @@ namespace JMusicPlayer
             this.buttonNext = new System.Windows.Forms.Button();
             this.labelCurrent = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMP)).BeginInit();
@@ -70,6 +71,7 @@ namespace JMusicPlayer
             this.flowLayoutPanelPlaylist.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // button4
@@ -158,7 +160,7 @@ namespace JMusicPlayer
             this.tableLayoutPanelSearch.Controls.Add(this.comboBoxArtist, 1, 4);
             this.tableLayoutPanelSearch.Controls.Add(this.comboBoxAlbum, 1, 6);
             this.tableLayoutPanelSearch.Controls.Add(this.comboBoxGenre, 1, 8);
-            this.tableLayoutPanelSearch.Location = new System.Drawing.Point(267, 118);
+            this.tableLayoutPanelSearch.Location = new System.Drawing.Point(0, 118);
             this.tableLayoutPanelSearch.Name = "tableLayoutPanelSearch";
             this.tableLayoutPanelSearch.RowCount = 10;
             this.tableLayoutPanelSearch.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -296,7 +298,7 @@ namespace JMusicPlayer
             // 
             this.flowLayoutPanelPlaylist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.flowLayoutPanelPlaylist.Controls.Add(this.panel1);
-            this.flowLayoutPanelPlaylist.Controls.Add(this.flowLayoutPanelList);
+            this.flowLayoutPanelPlaylist.Controls.Add(this.dataGridView);
             this.flowLayoutPanelPlaylist.Controls.Add(this.panel2);
             this.flowLayoutPanelPlaylist.Location = new System.Drawing.Point(264, 64);
             this.flowLayoutPanelPlaylist.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
@@ -378,26 +380,16 @@ namespace JMusicPlayer
             this.buttonOpen.UseVisualStyleBackColor = true;
             this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
-            // flowLayoutPanelList
-            // 
-            this.flowLayoutPanelList.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.flowLayoutPanelList.Location = new System.Drawing.Point(3, 64);
-            this.flowLayoutPanelList.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.flowLayoutPanelList.Name = "flowLayoutPanelList";
-            this.flowLayoutPanelList.Size = new System.Drawing.Size(307, 338);
-            this.flowLayoutPanelList.TabIndex = 22;
-            this.flowLayoutPanelList.Visible = false;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Black;
             this.panel2.Controls.Add(this.buttonLoad);
             this.panel2.Controls.Add(this.buttonSave);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(3, 412);
+            this.panel2.Location = new System.Drawing.Point(3, 407);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(307, 68);
+            this.panel2.Size = new System.Drawing.Size(315, 68);
             this.panel2.TabIndex = 17;
             // 
             // buttonLoad
@@ -523,6 +515,22 @@ namespace JMusicPlayer
             this.labelTotal.TabIndex = 34;
             this.labelTotal.Text = "00:00";
             // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.ReadOnlyChecked = true;
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Location = new System.Drawing.Point(3, 62);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.RowHeadersWidth = 51;
+            this.dataGridView.RowTemplate.Height = 24;
+            this.dataGridView.Size = new System.Drawing.Size(315, 337);
+            this.dataGridView.TabIndex = 18;
+            // 
             // JMusicPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -558,6 +566,7 @@ namespace JMusicPlayer
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -587,7 +596,6 @@ namespace JMusicPlayer
         private System.Windows.Forms.Button buttonSearchPopup;
         private System.Windows.Forms.Label labelPlaylist;
         private System.Windows.Forms.Button buttonOpen;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelList;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.Button buttonSave;
@@ -598,6 +606,8 @@ namespace JMusicPlayer
         private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.Label labelCurrent;
         private System.Windows.Forms.Label labelTotal;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.DataGridView dataGridView;
     }
 }
 

@@ -149,5 +149,31 @@ namespace JMusicPlayer.Model
             }
             return songs;
         }
+
+        public string[] GetAllName()
+        {
+            Song t = head;
+            string[] names = new string[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                names[i] = t.name;
+                t = t.next;
+            }
+            return names;
+        }
+
+        public double[] GetAllDuration()
+        {
+            Song t = head;
+            double[] duration = new double[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                duration[i] = t.Duration;
+                t = t.next;
+            }
+            return duration;
+        }
     }
 }
