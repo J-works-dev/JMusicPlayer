@@ -11,12 +11,16 @@ using JMusicPlayer.Control;
 using JMusicPlayer.Model;
 using System.Runtime.InteropServices;
 using System.IO;
+using CsvHelper;
+using System.Globalization;
 
 namespace JMusicPlayer
 {
     public partial class JMusicPlayer : Form
     {
         public static bool isReady = false;
+        public static bool isPlayed = false;
+        public static string selectedSong;
         //public static Playlist playlist = new Playlist();
         public JMusicPlayer()
         {
@@ -99,7 +103,15 @@ namespace JMusicPlayer
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-            if (WMP.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            if (selectedSong != null && isPlayed)
+            {
+                Controller.OpenMedia(Playlist.SearchByName(selectedSong), WMP);
+                isPlayed = false;
+                selectedSong = "";
+            }
+            else
+            {
+                if (WMP.playState == WMPLib.WMPPlayState.wmppsPlaying)
                 {
                     WMP.Ctlcontrols.pause();
                     PlayPauseIcon(true);
@@ -110,6 +122,7 @@ namespace JMusicPlayer
                     WMP.Ctlcontrols.play();
                     PlayPauseIcon(false);
                 }
+            }
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -124,7 +137,7 @@ namespace JMusicPlayer
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
-
+            selectedSong = "";
         }
 
         private void buttonPlaylist_Click(object sender, EventArgs e)
@@ -185,12 +198,71 @@ namespace JMusicPlayer
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            if (!Playlist.IsEmpty())
+            {
+                SaveFileDialog saveDi = new SaveFileDialog
+                {
+                    FileName = "Playlist.csv",
+                    Filter = "CSV (*.csv)|*.csv"
+                };
+                bool fileError = false;
+                if (saveDi.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(saveDi.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(saveDi.FileName);
+                        }
+                        catch (IOException ex)
+                        {
+                            fileError = true;
+                        }
+                    }
+                    if (!fileError)
+                    {
+                        try
+                        {
+                            string[] outputCsv = Playlist.GetAllSongs();
 
+                            File.WriteAllLines(saveDi.FileName, outputCsv, Encoding.UTF8);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error :" + ex.Message);
+                        }
+                    }
+                }
+            }
+            
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
+            OpenFileDialog od = new OpenFileDialog();
+            od.Filter = "CSV Files (*.csv)|*.csv";
+            if (od.ShowDialog() == DialogResult.OK)
+            {
+                var streamReader = new StreamReader(od.FileName);
+                var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
+                
+                csvReader.Read();
+                csvReader.ReadHeader();
+                string[] headers = csvReader.HeaderRecord;
+                int colCount = headers.Length;
+                string value;
+                string[] row = new string[colCount];
 
+                while (csvReader.Read())
+                {
+                    for (int i = 0; csvReader.TryGetField<string>(i, out value); i++)
+                    {
+                        row[i] = value;
+                    }
+                    Playlist.Add(row[0]);
+                }
+                displayPlaylist();
+            }
         }
 
         // Search Page
@@ -288,6 +360,20 @@ namespace JMusicPlayer
         private void trackBar_MouseDown(object sender, MouseEventArgs e)
         {
             UpdateTimer.Stop();
+        }
+
+        private void dataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = dataGridView.CurrentCell.RowIndex;
+            selectedSong = dataGridView.Rows[selectedIndex].Cells[0].Value.ToString();
+            isPlayed = true;
+        }
+
+        private void dataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Controller.OpenMedia(Playlist.SearchByName(dataGridView.Rows[dataGridView.CurrentCell.RowIndex].Cells[0].Value.ToString()), WMP);
+            selectedSong = "";
+            isPlayed = false;
         }
     }
 }
