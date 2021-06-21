@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace JMusicPlayer.Model
 {
@@ -10,6 +11,7 @@ namespace JMusicPlayer.Model
         static int count;
         public static Hashtable SongProperties = new Hashtable();
         public static int Count { get { return count; } }
+        private static string[] sortingArray;
 
         public static string GetHeadData { get { return head.path; } }
 
@@ -52,6 +54,7 @@ namespace JMusicPlayer.Model
                     tail = tail.next;
                     count++;
                 }
+                //SongProperties.Add(node.name, GetSongProperties(node.name));
             }
         }
 
@@ -218,6 +221,95 @@ namespace JMusicPlayer.Model
                 t = t.next;
             }
             return result;
+        }
+
+        public static void SortPlaylist()
+        {
+            sortingArray = GetAllName();
+            sort(sortingArray, 0, sortingArray.Length - 1);
+            List<string> paths = new List<string>();
+            foreach (string name in sortingArray)
+            {
+                paths.Add(SearchByName(name));
+            }
+            foreach (string name in sortingArray)
+            {
+                Remove(name);
+            }
+            AddList(paths.ToArray());
+        }
+
+        private static void merge(string[] arr, int l, int m, int r)
+        {
+            // Find sizes of two subarrays to be merged
+            int n1 = m - l + 1;
+            int n2 = r - m;
+
+            // Create temp arrays
+            string[] L = new string[n1];
+            string[] R = new string[n2];
+            int i, j;
+
+            // Copy data to temp arrays
+            for (i = 0; i < n1; ++i)
+                L[i] = arr[l + i];
+            for (j = 0; j < n2; ++j)
+                R[j] = arr[m + 1 + j];
+
+            // Merge the temp arrays
+
+            // Initial indexes of first and second subarrays
+            i = 0;
+            j = 0;
+
+            // Initial index of merged subarry array
+            int k = l;
+            while (i < n1 && j < n2)
+            {
+                if (L[i].CompareTo(R[j]) < 1)
+                {
+                    arr[k] = L[i];
+                    i++;
+                }
+                else
+                {
+                    arr[k] = R[j];
+                    j++;
+                }
+                k++;
+            }
+
+            // Copy remaining elements of L[] if any
+            while (i < n1)
+            {
+                arr[k] = L[i];
+                i++;
+                k++;
+            }
+
+            // Copy remaining elements of R[] if any
+            while (j < n2)
+            {
+                arr[k] = R[j];
+                j++;
+                k++;
+            }
+        }
+        
+        private static void sort(string[] arr, int l, int r)
+        {
+            if (l < r)
+            {
+                // Find the middle point
+                int m = l + (r - l) / 2;
+
+                // Sort first and second halves
+                sort(arr, l, m);
+                sort(arr, m + 1, r);
+
+                // Merge the sorted halves
+                merge(arr, l, m, r);
+            }
         }
     }
 }

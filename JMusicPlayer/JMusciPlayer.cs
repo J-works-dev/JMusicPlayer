@@ -438,7 +438,8 @@ namespace JMusicPlayer
 
         private void buttonSort_Click(object sender, EventArgs e)
         {
-
+            Playlist.SortPlaylist();
+            displayPlaylist();
         }
 
         private void trackBar_MouseDown(object sender, MouseEventArgs e)
