@@ -28,7 +28,7 @@ namespace JMusicPlayer
         public JMusicPlayer()
         {
             InitializeComponent();
-            Intializer();
+            Initializer();
             StylizeDataGrid();
             if (!Playlist.IsEmpty())
             {
@@ -36,8 +36,9 @@ namespace JMusicPlayer
             }
         }
 
-        private void Intializer()
+        private void Initializer()
         {
+            // Media Player Initialize
             WMP.Ctlenabled = false;
             WMP.windowlessVideo = true;
             WMP.stretchToFit = true;
@@ -47,7 +48,7 @@ namespace JMusicPlayer
         {
             dataGridView.ColumnCount = 2;
             dataGridView.Columns[0].Name = "Title";
-            dataGridView.Columns[0].MinimumWidth = 200;
+            dataGridView.Columns[0].MinimumWidth = 250;
             dataGridView.Columns[1].Name = "Duration";
             dataGridView.Columns[1].MinimumWidth = 30;
             dataGridView.BorderStyle = BorderStyle.None;
@@ -156,6 +157,7 @@ namespace JMusicPlayer
         {
             if (flowLayoutPanelPlaylist.Visible == false) flowLayoutPanelPlaylist.Visible = true;
             else flowLayoutPanelPlaylist.Visible = false;
+            displayPlaylist();
         }
 
         private void flowLayoutPanelPlaylist_MouseDown(object sender, MouseEventArgs e)
@@ -192,20 +194,47 @@ namespace JMusicPlayer
 
         private void buttonSearchPopup_Click(object sender, EventArgs e)
         {
+            // ComboBox setup
+            setUpComboBox();
+
             if (tableLayoutPanelSearch.Visible == false)
             {
                 tableLayoutPanelSearch.Visible = true;
-                Search searchSong = new Search();
             }
             else tableLayoutPanelSearch.Visible = false;
         }
 
+        private void setUpComboBox()
+        {
+            comboBoxArtist.Items.Clear();
+            comboBoxAlbum.Items.Clear();
+            comboBoxGenre.Items.Clear();
+            // Artist
+            if (Controller.getProperty(1) != null)
+            {
+                comboBoxArtist.Items.AddRange(Controller.getProperty(1));
+            }
+            // Album
+            if (Controller.getProperty(2) != null)
+            {
+                comboBoxAlbum.Items.AddRange(Controller.getProperty(2));
+            }
+            // Genre
+            foreach (string item in Controller.getProperty(3))
+            {
+                if (!string.IsNullOrEmpty(item))
+                {
+                    comboBoxGenre.Items.Add(item);
+                }
+            }
+        }
+
         private void tableLayoutPanelSearch_MouseDown(object sender, MouseEventArgs e)
         {
-            if (!tableLayoutPanelSearch.Bounds.Contains(e.Location))
-            {
-                tableLayoutPanelSearch.Visible = false;
-            }
+            //if (!tableLayoutPanelSearch.Bounds.Contains(e.Location))
+            //{
+            //    tableLayoutPanelSearch.Visible = false;
+            //}
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -263,7 +292,7 @@ namespace JMusicPlayer
                 string[] headers = csvReader.HeaderRecord;
                 int colCount = headers.Length;
                 string value;
-                string[] row = new string[colCount];
+                string[] row = new string[colCount + 1];
 
                 while (csvReader.Read())
                 {
@@ -278,29 +307,37 @@ namespace JMusicPlayer
         }
 
         // Search Page
-        private void comboBoxTitle_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void comboBoxArtist_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            sArtist = comboBoxArtist.SelectedItem.ToString();
         }
 
         private void comboBoxAlbum_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            sAlbum = comboBoxAlbum.SelectedItem.ToString();
         }
 
         private void comboBoxGenre_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            sGenre = comboBoxGenre.SelectedItem.ToString();
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-
+            if (textBoxTitle != null) sTitle = textBoxTitle.Text;
+            isSearch = true;
+            searchedList = Search.search(sTitle, sArtist, sAlbum, sGenre);
+            if (searchedList == null)
+            {
+                MessageBox.Show("There is No Matched Song.");
+            }
+            else
+            {
+                displayPlaylist();
+            }
+            isSearch = false;
+            tableLayoutPanelSearch.Visible = false;
         }
 
         private void displayPlaylist()
@@ -399,6 +436,11 @@ namespace JMusicPlayer
             }
         }
 
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void trackBar_MouseDown(object sender, MouseEventArgs e)
         {
             UpdateTimer.Stop();
@@ -407,8 +449,12 @@ namespace JMusicPlayer
         private void dataGridView_SelectionChanged(object sender, EventArgs e)
         {
             int selectedIndex = dataGridView.CurrentCell.RowIndex;
-            selectedSong = dataGridView.Rows[selectedIndex].Cells[0].Value.ToString();
-            isPlayed = true;
+            if (selectedIndex != 0)
+            {
+                selectedSong = dataGridView.Rows[selectedIndex].Cells[0].Value.ToString();
+                isPlayed = true;
+            }
+            
         }
 
         private void dataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace JMusicPlayer.Model
 {
@@ -7,7 +8,7 @@ namespace JMusicPlayer.Model
         static Song head;
         static Song tail;
         static int count;
-
+        public static Hashtable SongProperties = new Hashtable();
         public static int Count { get { return count; } }
 
         public static string GetHeadData { get { return head.path; } }
@@ -198,6 +199,25 @@ namespace JMusicPlayer.Model
                 t = t.next;
             }
             return duration;
+        }
+
+        public static string[] GetSongProperties(string name)
+        {
+            Song t = head;
+            string[] result = new string[4];
+
+            while (t != null)
+            {
+                if (t.name == name)
+                {
+                    result[0] = t.Title;
+                    result[1] = t.Artist;
+                    result[2] = t.Album;
+                    result[3] = t.Genre;
+                }
+                t = t.next;
+            }
+            return result;
         }
     }
 }

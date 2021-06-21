@@ -165,6 +165,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="images\add_72px.png" />
+    <Content Include="images\alphabetical_sorting_50px.png" />
     <Content Include="images\back_72px.png" />
     <Content Include="images\circled_play_96px.png" />
     <Content Include="images\close_window_50px.png" />

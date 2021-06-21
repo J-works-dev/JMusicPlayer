@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace JMusicPlayer.Model
 {
@@ -12,6 +13,7 @@ namespace JMusicPlayer.Model
         public string path;
         public Song next;
         private readonly TagLib.File tagFile;
+        
         //private static Image defaultImage = Image.FromFile("../images/default.png");
         
         public Song(string path)
@@ -19,7 +21,14 @@ namespace JMusicPlayer.Model
             this.path = path;
             this.name = Path.GetFileName(path);
             this.next = null;
-            this.tagFile = TagLib.File.Create(path);
+            try
+            {
+                this.tagFile = TagLib.File.Create(path);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e);
+            }
         }
         public string Title
         {
@@ -50,7 +59,7 @@ namespace JMusicPlayer.Model
                     return tagFile.Tag.Album.Trim();
             }
         }
-        public string Genrne
+        public string Genre
         {
             get
             {

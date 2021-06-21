@@ -49,5 +49,26 @@ namespace JMusicPlayer
             }
         }
 
+        public static string[] getProperty(int sel)
+        {
+            List<string> items = new List<string>();
+            string[] properties;
+            string[] names = Playlist.GetAllName();
+
+            for (int i = 0; i < Playlist.Count; i++)
+            {
+                properties = Playlist.GetSongProperties(names[i]);
+                items.Add(properties[sel]);
+            }
+            string[] result = items.Distinct().ToArray();
+            foreach (string item in result)
+            {
+                if (item != null || item != "")
+                {
+                    return result;
+                }
+            }
+            return null;
+        }
     }
 }
