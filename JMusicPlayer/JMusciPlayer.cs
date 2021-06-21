@@ -44,9 +44,9 @@ namespace JMusicPlayer
         {
             dataGridView.ColumnCount = 2;
             dataGridView.Columns[0].Name = "Title";
-            dataGridView.Columns[0].MinimumWidth = 250;
+            dataGridView.Columns[0].MinimumWidth = 200;
             dataGridView.Columns[1].Name = "Duration";
-            dataGridView.Columns[1].MinimumWidth = 40;
+            dataGridView.Columns[1].MinimumWidth = 30;
             dataGridView.BorderStyle = BorderStyle.None;
             dataGridView.BackgroundColor = Color.FromArgb(20, 20, 20);
             dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(20, 20, 20);
@@ -58,6 +58,7 @@ namespace JMusicPlayer
         {
             trackBar.Value = 0;
             trackBar.Maximum = stringToTime(WMP.Ctlcontrols.currentItem.durationString);
+            labelTotal.Text = WMP.Ctlcontrols.currentItem.durationString;
         }
 
         private void WMP_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
@@ -103,7 +104,7 @@ namespace JMusicPlayer
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-            if (selectedSong != null && isPlayed)
+            if (selectedSong != null && isPlayed && flowLayoutPanelPlaylist.Visible)
             {
                 Controller.OpenMedia(Playlist.SearchByName(selectedSong), WMP);
                 isPlayed = false;
@@ -118,7 +119,7 @@ namespace JMusicPlayer
                 }
                 else
                 {
-                    Controller.AutoPlayStarts(WMP);
+                    //Controller.AutoPlayStarts(WMP);
                     WMP.Ctlcontrols.play();
                     PlayPauseIcon(false);
                 }
@@ -127,17 +128,20 @@ namespace JMusicPlayer
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
-
+            Controller.PlayPreviousTrack(WMP);
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-
+            Controller.PlayNextTrack(WMP);
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
             selectedSong = "";
+            WMP.Ctlcontrols.stop();
+            trackBar.Value = 0;
+            labelCurrent.Text = "00:00";
         }
 
         private void buttonPlaylist_Click(object sender, EventArgs e)
@@ -348,6 +352,7 @@ namespace JMusicPlayer
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             trackBar.Value = stringToTime(WMP.Ctlcontrols.currentPositionString);
+            labelCurrent.Text = WMP.Ctlcontrols.currentPositionString;
         }
 
         private void trackBar_MouseUp(object sender, MouseEventArgs e)
