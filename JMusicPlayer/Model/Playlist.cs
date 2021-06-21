@@ -2,29 +2,38 @@
 
 namespace JMusicPlayer.Model
 {
-    class Playlist
+    static class Playlist
     {
-        Song head;
-        Song tail;
-        int count;
+        static Song head;
+        static Song tail;
+        static int count;
 
-        public int Count { get { return count; } }
+        public static int Count { get { return count; } }
 
-        public string GetHeadData { get { return head.path; } }
+        public static string GetHeadData { get { return head.path; } }
 
-        public Playlist()
-        {
-            head = null;
-            tail = null;
-        }
+        //public static Playlist()
+        //{
+        //    head = null;
+        //    tail = null;
+        //}
 
-        public bool IsEmpty()
+        public static bool IsEmpty()
         {
             if (count <= 0) return true;
             return false;
         }
 
-        public void Add(string path)
+        public static string GetFirstTrack
+        {
+            get
+            {
+                if (IsEmpty()) return null;
+                return GetHeadData;
+            }
+        }
+
+        public static void Add(string path)
         {
             if (!String.IsNullOrWhiteSpace(path))
             {
@@ -45,7 +54,7 @@ namespace JMusicPlayer.Model
             }
         }
 
-        public void AddList(string[] paths)
+        public static void AddList(string[] paths)
         {
             foreach (string path in paths)
             {
@@ -53,7 +62,7 @@ namespace JMusicPlayer.Model
             }
         }
 
-        public void Remove(string val)
+        public static void Remove(string val)
         {
             Song t = head;
             if (t.name == val)
@@ -74,7 +83,7 @@ namespace JMusicPlayer.Model
             }
         }
 
-        public string SearchByName(string _name)
+        public static string SearchByName(string _name)
         {
             Song t = head;
 
@@ -89,7 +98,22 @@ namespace JMusicPlayer.Model
             return null;
         }
 
-        public string SelectNextSong(string _path)
+        public static double GetDuration(string _path)
+        {
+            Song t = head;
+
+            while (t != null)
+            {
+                if (t.path == _path)
+                {
+                    return t.Duration;
+                }
+                t = t.next;
+            }
+            return 0;
+        }
+
+        public static string SelectNextSong(string _path)
         {
             Song t = head;
 
@@ -104,7 +128,7 @@ namespace JMusicPlayer.Model
             return head.path; // Repeat Playlist from First Song
         }
 
-        public string SelectPreviousSong(string _path)
+        public static string SelectPreviousSong(string _path)
         {
             Song t = head;
 
@@ -122,7 +146,7 @@ namespace JMusicPlayer.Model
             return null;
         }
 
-        public string SelectRandomSong()
+        public static string SelectRandomSong()
         {
             Song t = head;
 
@@ -137,7 +161,7 @@ namespace JMusicPlayer.Model
             return null;
         }
 
-        public string[] GetAllSongs()
+        public static string[] GetAllSongs()
         {
             Song t = head;
             string[] songs = new string[count];
@@ -150,7 +174,7 @@ namespace JMusicPlayer.Model
             return songs;
         }
 
-        public string[] GetAllName()
+        public static string[] GetAllName()
         {
             Song t = head;
             string[] names = new string[count];
@@ -163,7 +187,7 @@ namespace JMusicPlayer.Model
             return names;
         }
 
-        public double[] GetAllDuration()
+        public static double[] GetAllDuration()
         {
             Song t = head;
             double[] duration = new double[count];

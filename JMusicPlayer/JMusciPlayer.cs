@@ -14,13 +14,14 @@ namespace JMusicPlayer
 {
     public partial class JMusicPlayer : Form
     {
-        Playlist playlist = new Playlist();
+        public static bool isReady = false;
+        //public static Playlist playlist = new Playlist();
         public JMusicPlayer()
         {
             InitializeComponent();
             Intializer();
             StylizeDataGrid();
-            if (!playlist.IsEmpty())
+            if (!Playlist.IsEmpty())
             {
                 displayPlaylist();
             }
@@ -37,7 +38,9 @@ namespace JMusicPlayer
         {
             dataGridView.ColumnCount = 2;
             dataGridView.Columns[0].Name = "Title";
+            dataGridView.Columns[0].MinimumWidth = 250;
             dataGridView.Columns[1].Name = "Duration";
+            dataGridView.Columns[1].MinimumWidth = 40;
             dataGridView.BorderStyle = BorderStyle.None;
             dataGridView.BackgroundColor = Color.FromArgb(20, 20, 20);
             dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(20, 20, 20);
@@ -52,7 +55,7 @@ namespace JMusicPlayer
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-
+            trackBar.Maximum = (int)Playlist.GetDuration("dfdas");
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -96,7 +99,7 @@ namespace JMusicPlayer
 
             if (od.ShowDialog() == DialogResult.OK)
             {
-                playlist.Add(od.FileName);
+                Playlist.Add(od.FileName);
                 displayPlaylist();
             }
         }
@@ -164,8 +167,8 @@ namespace JMusicPlayer
         {
             dataGridView.Rows.Clear();
 
-            string[] names = playlist.GetAllName();
-            double[] durations = playlist.GetAllDuration();
+            string[] names = Playlist.GetAllName();
+            double[] durations = Playlist.GetAllDuration();
 
             for (int i = 0; i < names.Length; i++)
             {

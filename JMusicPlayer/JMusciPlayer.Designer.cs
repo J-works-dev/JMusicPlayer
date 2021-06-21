@@ -30,11 +30,14 @@ namespace JMusicPlayer
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JMusicPlayer));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button4 = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trackBar = new System.Windows.Forms.TrackBar();
             this.WMP = new AxWMPLib.AxWindowsMediaPlayer();
             this.tableLayoutPanelSearch = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,6 +55,7 @@ namespace JMusicPlayer
             this.buttonSearchPopup = new System.Windows.Forms.Button();
             this.labelPlaylist = new System.Windows.Forms.Label();
             this.buttonOpen = new System.Windows.Forms.Button();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -63,15 +67,14 @@ namespace JMusicPlayer
             this.labelCurrent = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMP)).BeginInit();
             this.tableLayoutPanelSearch.SuspendLayout();
             this.flowLayoutPanelPlaylist.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button4
@@ -125,16 +128,16 @@ namespace JMusicPlayer
             this.panel.Size = new System.Drawing.Size(585, 63);
             this.panel.TabIndex = 14;
             // 
-            // trackBar1
+            // trackBar
             // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar1.Location = new System.Drawing.Point(56, 549);
-            this.trackBar1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(474, 56);
-            this.trackBar1.TabIndex = 22;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar.Location = new System.Drawing.Point(56, 549);
+            this.trackBar.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.trackBar.Name = "trackBar";
+            this.trackBar.Size = new System.Drawing.Size(474, 56);
+            this.trackBar.TabIndex = 22;
+            this.trackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             // 
             // WMP
             // 
@@ -150,7 +153,7 @@ namespace JMusicPlayer
             this.tableLayoutPanelSearch.ColumnCount = 3;
             this.tableLayoutPanelSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.94964F));
             this.tableLayoutPanelSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.05036F));
-            this.tableLayoutPanelSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.tableLayoutPanelSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanelSearch.Controls.Add(this.label1, 1, 1);
             this.tableLayoutPanelSearch.Controls.Add(this.comboBoxTitle, 1, 2);
             this.tableLayoutPanelSearch.Controls.Add(this.buttonSearch, 1, 9);
@@ -160,7 +163,7 @@ namespace JMusicPlayer
             this.tableLayoutPanelSearch.Controls.Add(this.comboBoxArtist, 1, 4);
             this.tableLayoutPanelSearch.Controls.Add(this.comboBoxAlbum, 1, 6);
             this.tableLayoutPanelSearch.Controls.Add(this.comboBoxGenre, 1, 8);
-            this.tableLayoutPanelSearch.Location = new System.Drawing.Point(0, 118);
+            this.tableLayoutPanelSearch.Location = new System.Drawing.Point(267, 118);
             this.tableLayoutPanelSearch.Name = "tableLayoutPanelSearch";
             this.tableLayoutPanelSearch.RowCount = 10;
             this.tableLayoutPanelSearch.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -199,7 +202,7 @@ namespace JMusicPlayer
             this.comboBoxTitle.Location = new System.Drawing.Point(38, 55);
             this.comboBoxTitle.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.comboBoxTitle.Name = "comboBoxTitle";
-            this.comboBoxTitle.Size = new System.Drawing.Size(236, 32);
+            this.comboBoxTitle.Size = new System.Drawing.Size(235, 32);
             this.comboBoxTitle.TabIndex = 1;
             this.comboBoxTitle.SelectedIndexChanged += new System.EventHandler(this.comboBoxTitle_SelectedIndexChanged);
             // 
@@ -213,7 +216,7 @@ namespace JMusicPlayer
             this.buttonSearch.Location = new System.Drawing.Point(38, 385);
             this.buttonSearch.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(236, 37);
+            this.buttonSearch.Size = new System.Drawing.Size(235, 37);
             this.buttonSearch.TabIndex = 0;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = false;
@@ -262,7 +265,7 @@ namespace JMusicPlayer
             this.comboBoxArtist.Location = new System.Drawing.Point(38, 145);
             this.comboBoxArtist.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.comboBoxArtist.Name = "comboBoxArtist";
-            this.comboBoxArtist.Size = new System.Drawing.Size(236, 32);
+            this.comboBoxArtist.Size = new System.Drawing.Size(235, 32);
             this.comboBoxArtist.TabIndex = 6;
             this.comboBoxArtist.SelectedIndexChanged += new System.EventHandler(this.comboBoxArtist_SelectedIndexChanged);
             // 
@@ -276,7 +279,7 @@ namespace JMusicPlayer
             this.comboBoxAlbum.Location = new System.Drawing.Point(38, 235);
             this.comboBoxAlbum.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.comboBoxAlbum.Name = "comboBoxAlbum";
-            this.comboBoxAlbum.Size = new System.Drawing.Size(236, 32);
+            this.comboBoxAlbum.Size = new System.Drawing.Size(235, 32);
             this.comboBoxAlbum.TabIndex = 7;
             this.comboBoxAlbum.SelectedIndexChanged += new System.EventHandler(this.comboBoxAlbum_SelectedIndexChanged);
             // 
@@ -290,7 +293,7 @@ namespace JMusicPlayer
             this.comboBoxGenre.Location = new System.Drawing.Point(38, 325);
             this.comboBoxGenre.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.comboBoxGenre.Name = "comboBoxGenre";
-            this.comboBoxGenre.Size = new System.Drawing.Size(236, 32);
+            this.comboBoxGenre.Size = new System.Drawing.Size(235, 32);
             this.comboBoxGenre.TabIndex = 8;
             this.comboBoxGenre.SelectedIndexChanged += new System.EventHandler(this.comboBoxGenre_SelectedIndexChanged);
             // 
@@ -379,6 +382,42 @@ namespace JMusicPlayer
             this.buttonOpen.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonOpen.UseVisualStyleBackColor = true;
             this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.ColumnHeadersVisible = false;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.dataGridView.Location = new System.Drawing.Point(3, 62);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.RowHeadersVisible = false;
+            this.dataGridView.RowHeadersWidth = 51;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Gray;
+            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridView.RowTemplate.Height = 24;
+            this.dataGridView.Size = new System.Drawing.Size(315, 337);
+            this.dataGridView.TabIndex = 18;
             // 
             // panel2
             // 
@@ -520,19 +559,9 @@ namespace JMusicPlayer
             this.openFileDialog.FileName = "openFileDialog";
             this.openFileDialog.ReadOnlyChecked = true;
             // 
-            // dataGridView
-            // 
-            this.dataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(3, 62);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.RowTemplate.Height = 24;
-            this.dataGridView.Size = new System.Drawing.Size(315, 337);
-            this.dataGridView.TabIndex = 18;
-            // 
             // JMusicPlayer
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
@@ -548,7 +577,7 @@ namespace JMusicPlayer
             this.Controls.Add(this.tableLayoutPanelSearch);
             this.Controls.Add(this.flowLayoutPanelPlaylist);
             this.Controls.Add(this.WMP);
-            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.trackBar);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.panel);
             this.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -558,15 +587,15 @@ namespace JMusicPlayer
             this.Text = "JMusicPlayer";
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMP)).EndInit();
             this.tableLayoutPanelSearch.ResumeLayout(false);
             this.tableLayoutPanelSearch.PerformLayout();
             this.flowLayoutPanelPlaylist.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -578,7 +607,7 @@ namespace JMusicPlayer
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Panel panel;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackBar;
         private AxWMPLib.AxWindowsMediaPlayer WMP;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSearch;
         private System.Windows.Forms.Label label1;
