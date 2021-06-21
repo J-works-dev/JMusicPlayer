@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using JMusicPlayer.Control;
 using JMusicPlayer.Model;
+using System.Runtime.InteropServices;
+using System.IO;
 
 namespace JMusicPlayer
 {
@@ -48,6 +50,48 @@ namespace JMusicPlayer
 
         }
 
+        private void WMP_MediaChange(object sender, AxWMPLib._WMPOCXEvents_MediaChangeEvent e)
+        {
+            trackBar.Value = 0;
+            trackBar.Maximum = stringToTime(WMP.Ctlcontrols.currentItem.durationString);
+        }
+
+        private void WMP_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        {
+            if (WMP.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            {
+                UpdateTimer.Start();
+                PlayPauseIcon(false);
+            }
+
+            else
+            {
+                UpdateTimer.Stop();
+                PlayPauseIcon(true);
+            }
+
+            if (WMP.playState == WMPLib.WMPPlayState.wmppsMediaEnded)
+            {
+                if (isReady)
+                {
+                    Controller.PlayNextTrack(WMP);
+                    UpdateTimer.Start();
+                    PlayPauseIcon(false);
+                }
+            }
+
+            if (WMP.playState == WMPLib.WMPPlayState.wmppsReady)
+            {
+                try
+                {
+                    WMP.Ctlcontrols.play();
+                    UpdateTimer.Start();
+                    PlayPauseIcon(false);
+                }
+                catch { }
+            }
+        }
+
         private void buttonClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -55,7 +99,17 @@ namespace JMusicPlayer
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-            trackBar.Maximum = (int)Playlist.GetDuration("dfdas");
+            if (WMP.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                {
+                    WMP.Ctlcontrols.pause();
+                    PlayPauseIcon(true);
+                }
+                else
+                {
+                    Controller.AutoPlayStarts(WMP);
+                    WMP.Ctlcontrols.play();
+                    PlayPauseIcon(false);
+                }
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -106,7 +160,9 @@ namespace JMusicPlayer
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-
+            int selectedIndex = dataGridView.CurrentCell.RowIndex;
+            Playlist.Remove(dataGridView.Rows[selectedIndex].Cells[0].Value.ToString());
+            displayPlaylist();
         }
 
         private void buttonSearchPopup_Click(object sender, EventArgs e)
@@ -183,6 +239,55 @@ namespace JMusicPlayer
             int sec = (int)time % 60;
 
             return string.Format("{0,2}:{0,2}", min.ToString("D2"), sec.ToString("D2"));
+        }
+
+        private int stringToTime(string dur)
+        {
+            int timeInSec = 0;
+            string[] pieces = dur.Split(':');
+            if (pieces.Length == 2)
+            {
+                timeInSec = int.Parse(pieces[0]) * 60;
+                timeInSec += int.Parse(pieces[1]);
+            }
+
+            else if (pieces.Length == 3)
+            {
+                timeInSec = int.Parse(pieces[0]) * 60 * 60;
+                timeInSec += int.Parse(pieces[1]) * 60;
+                timeInSec += int.Parse(pieces[2]);
+            }
+            return timeInSec;
+        }
+
+        private void PlayPauseIcon(bool ChangeToPlay)
+        {
+            if (ChangeToPlay)
+            {
+                buttonPlay.Image = Image.FromFile(@"C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\images\circled_play_96px.png");
+            }
+
+            else
+            {
+                buttonPlay.Image = Image.FromFile(@"C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\images\pause_96px.png");
+            }
+        }
+
+        private void UpdateTimer_Tick(object sender, EventArgs e)
+        {
+            trackBar.Value = stringToTime(WMP.Ctlcontrols.currentPositionString);
+        }
+
+        private void trackBar_MouseUp(object sender, MouseEventArgs e)
+        {
+            WMP.Ctlcontrols.currentPosition = trackBar.Value;
+            UpdateTimer.Start();
+            //foCUS.Focus();
+        }
+
+        private void trackBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            UpdateTimer.Stop();
         }
     }
 }
