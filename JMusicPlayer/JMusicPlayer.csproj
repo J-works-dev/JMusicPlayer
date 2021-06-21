@@ -167,9 +167,11 @@
     <Content Include="images\add_72px.png" />
     <Content Include="images\back_72px.png" />
     <Content Include="images\circled_play_96px.png" />
+    <Content Include="images\close_window_50px.png" />
     <Content Include="images\default.png" />
     <Content Include="images\delete_64px.png" />
     <Content Include="images\menu_72px.png" />
+    <Content Include="images\minimize_window_50px.png" />
     <Content Include="images\next.png" />
     <Content Include="images\next_72px.png" />
     <Content Include="images\open.png" />

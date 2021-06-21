@@ -20,7 +20,10 @@ namespace JMusicPlayer
     {
         public static bool isReady = false;
         public static bool isPlayed = false;
+        public static bool isSearch = false;
         public static string selectedSong;
+        public static string[] searchedList;
+        public static string sTitle, sArtist, sAlbum, sGenre;
         //public static Playlist playlist = new Playlist();
         public JMusicPlayer()
         {
@@ -100,6 +103,11 @@ namespace JMusicPlayer
         private void buttonClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void buttonMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
 
         private void buttonPlay_Click(object sender, EventArgs e)
@@ -298,13 +306,25 @@ namespace JMusicPlayer
         private void displayPlaylist()
         {
             dataGridView.Rows.Clear();
-
-            string[] names = Playlist.GetAllName();
-            double[] durations = Playlist.GetAllDuration();
+            string[] names;
+            double[] durations;
+            if (isSearch)
+            {
+                durations = new double[searchedList.Length];
+                names = searchedList;
+                for (int i = 0; i < searchedList.Length; i++)
+                {
+                    durations[i] = Playlist.GetDuration(Playlist.SearchByName(searchedList[i]));
+                }
+            }
+            else
+            {
+                names = Playlist.GetAllName();
+                durations = Playlist.GetAllDuration();
+            }
 
             for (int i = 0; i < names.Length; i++)
             {
-                //string row = names[i] + "\t|\t" + timeToString(durations[i]);
                 dataGridView.Rows.Add(names[i], timeToString(durations[i]));
             }
         }
@@ -359,7 +379,24 @@ namespace JMusicPlayer
         {
             WMP.Ctlcontrols.currentPosition = trackBar.Value;
             UpdateTimer.Start();
-            //foCUS.Focus();
+        }
+
+        // Title bar Drag and Move
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        private void panel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(this.Handle, WM_NCLBUTTONDOWN, new IntPtr(HT_CAPTION), IntPtr.Zero);
+            }
         }
 
         private void trackBar_MouseDown(object sender, MouseEventArgs e)
@@ -380,5 +417,6 @@ namespace JMusicPlayer
             selectedSong = "";
             isPlayed = false;
         }
+
     }
 }
