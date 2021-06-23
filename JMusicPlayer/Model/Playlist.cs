@@ -4,29 +4,26 @@ using System.Collections.Generic;
 
 namespace JMusicPlayer.Model
 {
+    // Playlist is Linked list
     static class Playlist
     {
+        // Variables
         static Song head;
         static Song tail;
         static int count;
         public static Hashtable SongProperties = new Hashtable();
         public static int Count { get { return count; } }
         private static string[] sortingArray;
-
         public static string GetHeadData { get { return head.path; } }
 
-        //public static Playlist()
-        //{
-        //    head = null;
-        //    tail = null;
-        //}
-
+        // Method to check Playlist is empty
         public static bool IsEmpty()
         {
             if (count <= 0) return true;
             return false;
         }
 
+        // return First Track
         public static string GetFirstTrack
         {
             get
@@ -36,6 +33,7 @@ namespace JMusicPlayer.Model
             }
         }
 
+        // Add a Song to Playlist
         public static void Add(string path)
         {
             if (!String.IsNullOrWhiteSpace(path))
@@ -54,10 +52,10 @@ namespace JMusicPlayer.Model
                     tail = tail.next;
                     count++;
                 }
-                //SongProperties.Add(node.name, GetSongProperties(node.name));
             }
         }
 
+        // Add List, more than 2 songs
         public static void AddList(string[] paths)
         {
             foreach (string path in paths)
@@ -66,6 +64,7 @@ namespace JMusicPlayer.Model
             }
         }
 
+        // Remove a song from the list
         public static void Remove(string val)
         {
             Song t = head;
@@ -87,6 +86,7 @@ namespace JMusicPlayer.Model
             }
         }
 
+        // Search a song by name
         public static string SearchByName(string _name)
         {
             Song t = head;
@@ -102,6 +102,7 @@ namespace JMusicPlayer.Model
             return null;
         }
 
+        // return duration of the song
         public static double GetDuration(string _path)
         {
             Song t = head;
@@ -117,6 +118,7 @@ namespace JMusicPlayer.Model
             return 0;
         }
 
+        // return next song of current song
         public static string SelectNextSong(string _path)
         {
             Song t = head;
@@ -132,6 +134,7 @@ namespace JMusicPlayer.Model
             return head.path; // Repeat Playlist from First Song
         }
 
+        // return previous song of current song
         public static string SelectPreviousSong(string _path)
         {
             Song t = head;
@@ -150,6 +153,7 @@ namespace JMusicPlayer.Model
             return null;
         }
 
+        // Method for random song play. Haven't used yet
         public static string SelectRandomSong()
         {
             Song t = head;
@@ -165,6 +169,7 @@ namespace JMusicPlayer.Model
             return null;
         }
 
+        // return paths of all songs
         public static string[] GetAllSongs()
         {
             Song t = head;
@@ -178,6 +183,7 @@ namespace JMusicPlayer.Model
             return songs;
         }
 
+        // return names of all songs
         public static string[] GetAllName()
         {
             Song t = head;
@@ -191,6 +197,7 @@ namespace JMusicPlayer.Model
             return names;
         }
 
+        // return durations of all songs
         public static double[] GetAllDuration()
         {
             Song t = head;
@@ -204,6 +211,7 @@ namespace JMusicPlayer.Model
             return duration;
         }
 
+        // return properties of the song by name
         public static string[] GetSongProperties(string name)
         {
             Song t = head;
@@ -223,6 +231,7 @@ namespace JMusicPlayer.Model
             return result;
         }
 
+        // Sort Playlist ascending
         public static void SortPlaylist()
         {
             sortingArray = GetAllName();
@@ -239,6 +248,7 @@ namespace JMusicPlayer.Model
             AddList(paths.ToArray());
         }
 
+        // Merge Sort Method
         private static void merge(string[] arr, int l, int m, int r)
         {
             // Find sizes of two subarrays to be merged
@@ -296,6 +306,7 @@ namespace JMusicPlayer.Model
             }
         }
         
+        // Part of Merge Sort
         private static void sort(string[] arr, int l, int r)
         {
             if (l < r)

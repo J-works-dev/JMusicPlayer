@@ -1,37 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using JMusicPlayer.Model;
-using JMusicPlayer.Control;
 using System.Windows.Forms;
 
 namespace JMusicPlayer
 {
+    // Main Controller Class
     static class Controller
     {
+        // Window Media Player supported formats
         private static string[] wmpSupportedFormats = { ".wav", ".aac", ".wma", ".wmv", ".avi", ".mp3", ".mp4", ".mov", ".mkv", ".WAV", ".AAC", ".WMA", ".WMV", ".AVI", ".MPG", ".MPEG", ".MP3", ".MP4", ".MOV" };
         public static string currentTrack { get; set; }
 
+        // Method for Auto Play
         public static void AutoPlayStarts(AxWMPLib.AxWindowsMediaPlayer player)
         {
             OpenMedia(Playlist.GetFirstTrack, player);
             currentTrack = Playlist.GetFirstTrack;
         }
 
+        // Play next song
         public static void PlayNextTrack(AxWMPLib.AxWindowsMediaPlayer player)
         {
             currentTrack = Playlist.SelectNextSong(currentTrack);
             OpenMedia(currentTrack, player);
         }
 
+        // Play previous song
         public static void PlayPreviousTrack(AxWMPLib.AxWindowsMediaPlayer player)
         {
             currentTrack = Playlist.SelectPreviousSong(currentTrack);
             OpenMedia(currentTrack, player);
         }
-
+        
+        // Method for playing the song
         public static void OpenMedia(string MediaAddress, AxWMPLib.AxWindowsMediaPlayer Player)
         {
             if (MediaAddress != null)
@@ -49,6 +51,7 @@ namespace JMusicPlayer
             }
         }
 
+        // get properties of song
         public static string[] getProperty(int sel)
         {
             List<string> items = new List<string>();

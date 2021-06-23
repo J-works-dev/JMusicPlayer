@@ -16,8 +16,10 @@ using System.Globalization;
 
 namespace JMusicPlayer
 {
+    // View: Windows Form
     public partial class JMusicPlayer : Form
     {
+        // Variables
         public static bool isReady = false;
         public static bool isPlayed = false;
         public static bool isSearch = false;
@@ -36,14 +38,15 @@ namespace JMusicPlayer
             }
         }
 
+        // Media Player Initialize
         private void Initializer()
         {
-            // Media Player Initialize
             WMP.Ctlenabled = false;
             WMP.windowlessVideo = true;
             WMP.stretchToFit = true;
         }
 
+        // Stylize DataGrid
         private void StylizeDataGrid()
         {
             dataGridView.ColumnCount = 2;
@@ -58,6 +61,7 @@ namespace JMusicPlayer
 
         }
 
+        // catch Window media player Something changed
         private void WMP_MediaChange(object sender, AxWMPLib._WMPOCXEvents_MediaChangeEvent e)
         {
             trackBar.Value = 0;
@@ -65,6 +69,7 @@ namespace JMusicPlayer
             labelTotal.Text = WMP.Ctlcontrols.currentItem.durationString;
         }
 
+        // catch WMP state change
         private void WMP_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
         {
             if (WMP.playState == WMPLib.WMPPlayState.wmppsPlaying)
@@ -101,16 +106,19 @@ namespace JMusicPlayer
             }
         }
 
+        // Button close Clicked
         private void buttonClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // minimize button clicked
         private void buttonMinimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
+        // Play button clicked
         private void buttonPlay_Click(object sender, EventArgs e)
         {
             if (selectedSong != null && isPlayed && flowLayoutPanelPlaylist.Visible)
@@ -135,16 +143,19 @@ namespace JMusicPlayer
             }
         }
 
+        // Previous button clicked
         private void buttonBack_Click(object sender, EventArgs e)
         {
             Controller.PlayPreviousTrack(WMP);
         }
 
+        // Next button clicked
         private void buttonNext_Click(object sender, EventArgs e)
         {
             Controller.PlayNextTrack(WMP);
         }
 
+        // Stop button clicked
         private void buttonStop_Click(object sender, EventArgs e)
         {
             selectedSong = "";
@@ -153,6 +164,7 @@ namespace JMusicPlayer
             labelCurrent.Text = "00:00";
         }
 
+        // Menu button clicked
         private void buttonPlaylist_Click(object sender, EventArgs e)
         {
             tableLayoutPanelSearch.Visible = false;
@@ -161,6 +173,7 @@ namespace JMusicPlayer
             displayPlaylist();
         }
 
+        // Playlist pane visible option
         private void flowLayoutPanelPlaylist_MouseDown(object sender, MouseEventArgs e)
         {
             if (!flowLayoutPanelPlaylist.Bounds.Contains(e.Location))
@@ -169,7 +182,7 @@ namespace JMusicPlayer
             }
         }
 
-        // Playlist Page
+        // Open and add song
         private void buttonOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog od = new OpenFileDialog
@@ -186,6 +199,7 @@ namespace JMusicPlayer
             }
         }
 
+        // Delete a song
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             int selectedIndex = dataGridView.CurrentCell.RowIndex;
@@ -193,6 +207,7 @@ namespace JMusicPlayer
             displayPlaylist();
         }
 
+        // Open Search option
         private void buttonSearchPopup_Click(object sender, EventArgs e)
         {
             // ComboBox setup
@@ -205,6 +220,7 @@ namespace JMusicPlayer
             else tableLayoutPanelSearch.Visible = false;
         }
 
+        // Set each tag into the combobox.
         private void setUpComboBox()
         {
             comboBoxArtist.Items.Clear();
@@ -230,6 +246,7 @@ namespace JMusicPlayer
             }
         }
 
+        // close Search option when click outside of the option page
         private void tableLayoutPanelSearch_MouseDown(object sender, MouseEventArgs e)
         {
             //if (!tableLayoutPanelSearch.Bounds.Contains(e.Location))
@@ -238,6 +255,7 @@ namespace JMusicPlayer
             //}
         }
 
+        // Save list to CSV
         private void buttonSave_Click(object sender, EventArgs e)
         {
             if (!Playlist.IsEmpty())
@@ -279,6 +297,7 @@ namespace JMusicPlayer
             
         }
 
+        // Load CSV playlist file
         private void buttonLoad_Click(object sender, EventArgs e)
         {
             OpenFileDialog od = new OpenFileDialog();
@@ -307,7 +326,7 @@ namespace JMusicPlayer
             }
         }
 
-        // Search Page
+        // Search Option Page
 
         private void comboBoxArtist_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -324,6 +343,7 @@ namespace JMusicPlayer
             sGenre = comboBoxGenre.SelectedItem.ToString();
         }
 
+        // Search the Song
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             if (textBoxTitle != null) sTitle = textBoxTitle.Text;
@@ -341,6 +361,7 @@ namespace JMusicPlayer
             tableLayoutPanelSearch.Visible = false;
         }
 
+        // Display playlist in to the DataGridView
         private void displayPlaylist()
         {
             dataGridView.Rows.Clear();
@@ -367,6 +388,7 @@ namespace JMusicPlayer
             }
         }
 
+        // Change time to formatted string 00:00
         private string timeToString(double time)
         {
             int min = (int)time / 60;
@@ -375,6 +397,7 @@ namespace JMusicPlayer
             return string.Format("{0,2}:{0,2}", min.ToString("D2"), sec.ToString("D2"));
         }
 
+        // 00:00 string to time
         private int stringToTime(string dur)
         {
             int timeInSec = 0;
@@ -394,6 +417,7 @@ namespace JMusicPlayer
             return timeInSec;
         }
 
+        // Toggle Play and Pause Icon
         private void PlayPauseIcon(bool ChangeToPlay)
         {
             if (ChangeToPlay)
@@ -407,12 +431,14 @@ namespace JMusicPlayer
             }
         }
 
+        // Timer Tick every second
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             trackBar.Value = stringToTime(WMP.Ctlcontrols.currentPositionString);
             labelCurrent.Text = WMP.Ctlcontrols.currentPositionString;
         }
 
+        // get Track Bar value
         private void trackBar_MouseUp(object sender, MouseEventArgs e)
         {
             WMP.Ctlcontrols.currentPosition = trackBar.Value;
@@ -428,6 +454,7 @@ namespace JMusicPlayer
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
+        // Move window form when click and drag
         private void panel_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -437,6 +464,7 @@ namespace JMusicPlayer
             }
         }
 
+        // Sort the list
         private void buttonSort_Click(object sender, EventArgs e)
         {
             Playlist.SortPlaylist();
@@ -448,6 +476,7 @@ namespace JMusicPlayer
             UpdateTimer.Stop();
         }
 
+        // get list value, when click the list
         private void dataGridView_SelectionChanged(object sender, EventArgs e)
         {
             int selectedIndex = dataGridView.CurrentCell.RowIndex;
@@ -459,6 +488,7 @@ namespace JMusicPlayer
             
         }
 
+        // Play music when double Click the list
         private void dataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Controller.OpenMedia(Playlist.SearchByName(dataGridView.Rows[dataGridView.CurrentCell.RowIndex].Cells[0].Value.ToString()), WMP);

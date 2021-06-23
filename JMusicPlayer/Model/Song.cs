@@ -1,21 +1,20 @@
 ﻿
 using System;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace JMusicPlayer.Model
 {
+    // Song class is used as a Node
     class Song
     {
+        // Variables
         public string name;
         public string path;
         public Song next;
-        private readonly TagLib.File tagFile;
+        private readonly TagLib.File tagFile; // using 3rd Party library for get mp3 file tag
         
-        //private static Image defaultImage = Image.FromFile("../images/default.png");
-        
+        // Constructor
         public Song(string path)
         {
             this.path = path;
@@ -30,6 +29,7 @@ namespace JMusicPlayer.Model
                 MessageBox.Show("Error: " + e);
             }
         }
+        // Getters
         public string Title
         {
             get
@@ -69,28 +69,7 @@ namespace JMusicPlayer.Model
                     tagFile.Tag.FirstGenre.Trim();
             }
         }
-        //public System.Drawing.Image LoadImageSong
-        //{
-        //    get
-        //    {
-        //        TagLib.IPicture firstPicture = tagFile.Tag.Pictures.FirstOrDefault();
-        //        System.Drawing.Image image;
 
-        //        if (firstPicture != null && firstPicture.Data.Data.Length != 0)
-        //        {
-        //            var mStream = new MemoryStream();
-        //            byte[] pData = firstPicture.Data.Data;
-        //            mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
-        //            image = System.Drawing.Image.FromStream(mStream);
-        //            mStream.Dispose();
-        //        }
-        //        else
-        //        {
-        //            image = defaultImage;// 
-        //        }
-        //        return image;
-        //    }
-        //}
         public double Duration
         {
             get => tagFile.Properties.Duration.TotalSeconds;
