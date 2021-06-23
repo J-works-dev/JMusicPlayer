@@ -1,5 +1,4 @@
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.csprojAssemblyReference.cache
-C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.Form2.resources
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\JMusicPlayer.csproj.GenerateResource.cache
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\Interop.WMPLib.dll
 C:\Users\Jeremy\source\repos\JMusicPlayer\JMusicPlayer\obj\Debug\AxInterop.WMPLib.dll

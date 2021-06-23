@@ -155,6 +155,7 @@ namespace JMusicPlayer
 
         private void buttonPlaylist_Click(object sender, EventArgs e)
         {
+            tableLayoutPanelSearch.Visible = false;
             if (flowLayoutPanelPlaylist.Visible == false) flowLayoutPanelPlaylist.Visible = true;
             else flowLayoutPanelPlaylist.Visible = false;
             displayPlaylist();
@@ -195,7 +196,7 @@ namespace JMusicPlayer
         private void buttonSearchPopup_Click(object sender, EventArgs e)
         {
             // ComboBox setup
-            setUpComboBox();
+            if (!Playlist.IsEmpty()) setUpComboBox();
 
             if (tableLayoutPanelSearch.Visible == false)
             {
